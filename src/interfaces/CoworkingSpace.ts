@@ -1,4 +1,5 @@
 interface CoWorkingSpace{
+  id : string,
   name : string,
   address : string,
   operatingHours : string,
