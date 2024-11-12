@@ -1,25 +1,27 @@
-import Image from 'next/image'; 
+import Image from 'next/image';
 import InteractiveCard from './InteractiveCard';
 
 interface CardProps {
-    hid : string,
+    hid: string;
     coworkingspaceName: string;
     imgSrc: string;
 }
 
-export default function Card({ hid ,coworkingspaceName, imgSrc }: CardProps) {
+export default function Card({ hid, coworkingspaceName, imgSrc }: CardProps) {
     return (
         <InteractiveCard>
-            <div className="w-full h-[70%] relative rounded-t-lg">
+            <div className="w-full h-[70%] relative">
                 <Image 
                     src={imgSrc} 
                     alt={coworkingspaceName}   
                     fill={true}
-                    className='object-cover rounded-t-lg'            
+                    className="object-cover w-full h-full"
                 />
             </div>
-            <div className="w-full h-[30%] p-[10px] flex flex-col justify-center">
-                <p>{coworkingspaceName}</p>
+            <div className="w-full h-[30%] p-4 flex items-center justify-center bg-gray-100">
+                <p className="text-center font-semibold text-gray-800 text-lg truncate">
+                    {coworkingspaceName}
+                </p>
             </div>
         </InteractiveCard>
     );
