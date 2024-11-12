@@ -4,31 +4,43 @@
 
 :root {
   --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
+  --background-start-rgb: 245, 246, 250;
   --background-end-rgb: 255, 255, 255;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
     --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+    --background-start-rgb: 15, 23, 42;
+    --background-end-rgb: 30, 41, 59;
   }
 }
 
 body {
+  /* Adjust gradient background for a smoother look */
   margin-top: 64px;
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(
-      to bottom,
-      transparent,
+      180deg,
+      rgb(var(--background-start-rgb)),
       rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+    );
+  transition: background-color 0.3s, color 0.3s;
 }
 
+/* Balanced Text Wrapping */
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+
+  /* Custom container class for centering */
+  .container-center {
+    @apply mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  /* Shadows and transitions for interactive elements */
+  .shadow-hover {
+    @apply shadow-lg hover:shadow-xl transition-shadow duration-300;
   }
 }
