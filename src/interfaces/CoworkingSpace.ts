@@ -1,4 +1,6 @@
 interface CoWorkingSpace{
+  _id? : string,
+  __v? : number,
   id : string,
   name : string,
   address : string,

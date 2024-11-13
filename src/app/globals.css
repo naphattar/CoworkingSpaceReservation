@@ -18,7 +18,7 @@
 
 body {
   /* Adjust gradient background for a smoother look */
-  margin-top: 64px;
+  margin-top: 4rem;
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(
       180deg,
