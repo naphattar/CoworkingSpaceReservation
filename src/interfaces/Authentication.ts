@@ -1,4 +1,4 @@
-export interface userLogInResponse {
+export interface UserLogInResponse {
     success: boolean,
     _id: string,
     name: string,

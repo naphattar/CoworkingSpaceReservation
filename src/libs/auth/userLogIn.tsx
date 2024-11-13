@@ -1,7 +1,7 @@
 import { promises } from "dns";
-import {userLogInResponse} from '@/interfaces/Authentication';
+import {UserLogInResponse} from '@/interfaces/Authentication';
 const API_URL = (process.env.API_URL || 'http://localhost:5000')+ '/api/v1/auth/login';
-const  userLogIn = async (userEmail: string, userPassword: string): Promise<userLogInResponse> => {
+const  userLogIn = async (userEmail: string, userPassword: string): Promise<UserLogInResponse> => {
     await new Promise(resolve => setTimeout(resolve, 1000));
     const res = await fetch(API_URL, {
       method: 'POST',
