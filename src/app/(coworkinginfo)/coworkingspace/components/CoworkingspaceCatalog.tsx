@@ -12,7 +12,6 @@ export default async function CoworkingspaceCatalog({coworkingspaceJson} : {cowo
                     className="transform transition-transform duration-300 hover:scale-105"
                 >
                     <Card
-                        hid={coworkingspace.id}
                         coworkingspaceName={coworkingspace.name}
                         imgSrc={coworkingspace.picture}
                     />
