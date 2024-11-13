@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 
 export default function Banner() {
-  const covers = ['/img/space3.jpg', '/img/space3.jpg', '/img/space3.jpg', '/img/space3.jpg'];
+  const covers = ['/img/space3.jpg', '/img/space2.jpg', '/img/space1.jpg', '/img/space4.jpg'];
   const [index, setIndex] = useState<number>(0);
   const router = useRouter();
 
