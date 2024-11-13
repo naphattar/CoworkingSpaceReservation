@@ -10,9 +10,8 @@ export default async function createCoworkingspace(
     tel : string,
     picture : string
 ){
-    
     makeFetchDelay()
-
+    
     const response = await fetch(`${API_URL}/coworkingspaces/`,{
         method : "POST",
         headers : {
