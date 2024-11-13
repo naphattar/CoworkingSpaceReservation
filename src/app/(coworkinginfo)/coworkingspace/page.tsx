@@ -2,8 +2,8 @@ import styles from "@/app/page.module.css";
 import { LinearProgress } from "@mui/material";
 import { Suspense } from "react";
 import CoworkingspaceCatalog from "./components/CoworkingspaceCatalog";
-import getCoworkingspaces from "@/libs/getCoworkingspaces";
-import getCoworkingspace from "@/libs/getCoworkingspace";
+import getCoworkingspaces from "@/libs/Coworkingspace/getCoworkingspaces";
+import getCoworkingspace from "@/libs/Coworkingspace/getCoworkingspace";
 
 export default async function CoWorkingSpacePage() {
   const coworkingspace = await getCoworkingspaces()
