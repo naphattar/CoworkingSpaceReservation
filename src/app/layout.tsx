@@ -19,9 +19,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${inter.className} flex flex-col min-h-screen`}>
         <TopMenu />
-        <main className="flex-grow flex justify-center items-center bg-gray-100 dark:bg-gray-900 pt-10">
-          <div className="w-full max-w-6xl p-4">{children}</div>
-        </main>
+        {children}
       </body>
     </html>
   );

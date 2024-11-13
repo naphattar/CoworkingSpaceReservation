@@ -10,7 +10,7 @@ export default function Banner() {
 
   return (
     <div
-      className="relative w-full h-[80vh] flex items-center justify-center overflow-hidden cursor-pointer"
+      className="relative w-screen h-[80vh] flex items-center justify-center overflow-hidden cursor-pointer"
       onClick={() => setIndex((index + 1) % covers.length)}
     >
       <Image
