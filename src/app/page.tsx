@@ -5,7 +5,7 @@ export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-start">
         <Banner/>
-        <div className="flex-grow" /> {/* Spacer to push the footer to the bottom */}
+        <div className="flex-grow" />
         <Footer />
     </main>
   );
