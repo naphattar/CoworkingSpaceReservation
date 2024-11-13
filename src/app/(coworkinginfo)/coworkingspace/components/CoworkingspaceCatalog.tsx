@@ -1,11 +1,11 @@
 import Link from "next/link";
 import Card from "@/components/Card/Card";
-import { mockCoworkingSpace } from "@/constants/constant";
 
-export default function CoworkingspaceCatalog() {
+export default async function CoworkingspaceCatalog({coworkingspaceJson} : {coworkingspaceJson :Promise<CoWorkingSpaceJson>}) {
+    const coworkingspace = await coworkingspaceJson
     return (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 p-4">
-            {mockCoworkingSpace.map((coworkingspace) => (
+            {coworkingspace.data.map((coworkingspace) => (
                 <Link
                     href={`/coworkingspace/${coworkingspace.id}`}
                     key={coworkingspace.id}

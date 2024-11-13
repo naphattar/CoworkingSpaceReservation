@@ -1,4 +1,4 @@
-export const API_URL = 'http:localhost:5000/api/v1/'
+export const API_URL = 'http:localhost:5000/api/v1'
 export const API_DELEY_TIME = 500
 export const mockCoworkingSpace : CoWorkingSpace[]=  [
     {
@@ -10,6 +10,8 @@ export const mockCoworkingSpace : CoWorkingSpace[]=  [
       postalcode: "31000",
       tel: "044-123-456",
       picture: "/img/logo.jpg",
+      _id: "",
+      __v: 0
     },
     {
       id: "2",
@@ -20,6 +22,8 @@ export const mockCoworkingSpace : CoWorkingSpace[]=  [
       postalcode: "50200",
       tel: "053-456-789",
       picture: "/img/logo.jpg",
+      _id: "",
+      __v: 0
     },
     {
       id: "3",
@@ -30,6 +34,8 @@ export const mockCoworkingSpace : CoWorkingSpace[]=  [
       postalcode: "10110",
       tel: "02-789-0123",
       picture: "/img/logo.jpg",
+      _id: "",
+      __v: 0
     },
     {
       id: "4",
@@ -40,6 +46,8 @@ export const mockCoworkingSpace : CoWorkingSpace[]=  [
       postalcode: "83150",
       tel: "076-234-567",
       picture: "/img/logo.jpg",
+      _id: "",
+      __v: 0
     },
     {
       id: "5",
@@ -50,5 +58,7 @@ export const mockCoworkingSpace : CoWorkingSpace[]=  [
       postalcode: "40000",
       tel: "043-321-654",
       picture: "/img/logo.jpg",
+      _id: "",
+      __v: 0
     }
   ];
