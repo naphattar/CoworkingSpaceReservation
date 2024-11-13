@@ -3,7 +3,7 @@ import { makeFetchDelay } from "../utils";
 
 export default async function getCoworkingspace(id : string){
     
-    makeFetchDelay
+    makeFetchDelay()
     
     const response = await fetch(`${API_URL}/coworkingspaces/${id}`);
     if(!response.ok){
