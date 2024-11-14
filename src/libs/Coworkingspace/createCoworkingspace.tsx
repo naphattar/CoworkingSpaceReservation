@@ -1,5 +1,6 @@
-import { API_URL } from "@/constants/constant";
 import { makeFetchDelay } from "../utils";
+
+const API_URL = (process.env.API_URL || 'http://localhost:5000')+ '/api/v1/coworkingspaces/';
 
 export default async function createCoworkingspace(
     name : string,
@@ -13,12 +14,12 @@ export default async function createCoworkingspace(
 ){
     makeFetchDelay()
     
-    const response = await fetch(`${API_URL}/coworkingspaces/`,{
+    const response = await fetch(`${API_URL}`,{
         method : "POST",
-        headers : {
-            "Content-Type" : "application/json",
-        },
-        credentials: "include",
+        headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
         body : JSON.stringify({
             name : name,
             address : address,
