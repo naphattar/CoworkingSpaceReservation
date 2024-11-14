@@ -1,19 +1,35 @@
 "use client";
+import createCoworkingspace from "@/libs/Coworkingspace/createCoworkingspace";
 import { useState } from "react";
 
 export default function CreateCoworkingSpaceForm() {
   const [name, setName] = useState("");
   const [address, setAddress] = useState("");
-  const [operatingHours, setOperatingHours] = useState("");
+  const [startHours, setStartHours] = useState("");
+  const [endHours, setEndHours] = useState("");
   const [province, setProvince] = useState("");
   const [postalCode, setPostalCode] = useState("");
   const [tel, setTel] = useState("");
   const [picture, setPicture] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const checkOperatingHoursError = () =>{
+    if(startHours !== "" && endHours !== "" && startHours > endHours){
+        return true
+    }
+    return false
+  }
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const formData = { name, address, operatingHours, province, postalcode: postalCode, tel, picture };
-    console.log("Submitted Data:", formData);
+    await createCoworkingspace(
+        name,
+        address,
+        `${startHours} - ${endHours}`,
+        province,
+        postalCode,
+        tel,
+        picture
+    );
   };
 
   return (
@@ -43,13 +59,25 @@ export default function CreateCoworkingSpaceForm() {
           </div>
           <div className="flex flex-col">
             <label className="text-gray-700 font-semibold">Operating Hours</label>
-            <input
-              type="text"
-              value={operatingHours}
-              onChange={(e) => setOperatingHours(e.target.value)}
-              className="mt-2 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
-              required
-            />
+            {checkOperatingHoursError() && <p className="text-red-500 text-sm mt-1">{"End hours should be after start hours."}</p>}
+            <div className="flex space-x-4">
+              <input
+                type="time"
+                placeholder="Start Hours"
+                value={startHours}
+                onChange={(e) => setStartHours(e.target.value)}
+                className="mt-2 w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+                required
+              />
+              <input
+                type="time"
+                placeholder="End Hours"
+                value={endHours}
+                onChange={(e) => setEndHours(e.target.value)}
+                className="mt-2 w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+                required
+              />
+            </div>
           </div>
           <div className="flex flex-col">
             <label className="text-gray-700 font-semibold">Province</label>

@@ -2,11 +2,14 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
+import { useSession } from 'next-auth/react';
 
 export default function Banner() {
   const covers = ['/img/space3.jpg', '/img/space2.jpg', '/img/space1.jpg', '/img/space4.jpg'];
   const [index, setIndex] = useState<number>(0);
   const router = useRouter();
+  const {data : session } = useSession();
+  console.log("test",session)
 
   return (
     <div
