@@ -28,16 +28,20 @@ export default function CreateCoworkingSpaceForm() {
         const userSession : SessionUser = session?.user
         const userToken =userSession.token
         if(userToken){
+          try{
             await createCoworkingspace(
-                name,
-                address,
-                `${startHours} - ${endHours}`,
-                province,
-                postalCode,
-                tel,
-                picture,
-                userToken
+              name,
+              address,
+              `${startHours} - ${endHours}`,
+              province,
+              postalCode,
+              tel,
+              picture,
+              userToken
             );
+          }catch(e){
+            throw new Error("Failed to create new Coworking space")
+          }
         }
     }
   };
