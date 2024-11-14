@@ -7,8 +7,6 @@ import { useSession } from 'next-auth/react';
 
 export default function TopMenu() {
     const { data: session, status } = useSession();
-
-    console.log("this is session",session)
     return (
         <div className="fixed top-0 left-0 right-0 z-30 flex justify-between h-16 p-4 px-10 items-center bg-white shadow-md space-x-8">
             {/* Left Side: Title Text */}

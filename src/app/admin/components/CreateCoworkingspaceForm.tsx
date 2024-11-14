@@ -1,5 +1,7 @@
 "use client";
+import { SessionUser } from "@/interfaces/Authentication";
 import createCoworkingspace from "@/libs/Coworkingspace/createCoworkingspace";
+import { useSession } from "next-auth/react";
 import { useState } from "react";
 
 export default function CreateCoworkingSpaceForm() {
@@ -11,6 +13,7 @@ export default function CreateCoworkingSpaceForm() {
   const [postalCode, setPostalCode] = useState("");
   const [tel, setTel] = useState("");
   const [picture, setPicture] = useState("");
+  const { data: session } = useSession();
 
   const checkOperatingHoursError = () =>{
     if(startHours !== "" && endHours !== "" && startHours > endHours){
@@ -21,15 +24,22 @@ export default function CreateCoworkingSpaceForm() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    await createCoworkingspace(
-        name,
-        address,
-        `${startHours} - ${endHours}`,
-        province,
-        postalCode,
-        tel,
-        picture
-    );
+    if(session?.user){
+        const userSession : SessionUser = session?.user
+        const userToken =userSession.token
+        if(userToken){
+            await createCoworkingspace(
+                name,
+                address,
+                `${startHours} - ${endHours}`,
+                province,
+                postalCode,
+                tel,
+                picture,
+                userToken
+            );
+        }
+    }
   };
 
   return (

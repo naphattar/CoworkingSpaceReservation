@@ -8,7 +8,8 @@ export default async function createCoworkingspace(
     province : string,
     postalcode : string,
     tel : string,
-    picture : string
+    picture : string,
+    token? : string
 ){
     makeFetchDelay()
     

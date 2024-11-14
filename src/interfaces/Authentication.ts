@@ -18,3 +18,10 @@ export interface UserLogInResponse {
       __v: number,
     }
   }
+
+  export interface SessionUser{
+      name?: string | null;
+      email?: string | null;
+      image?: string | null;
+      token? : string | null
+  }
