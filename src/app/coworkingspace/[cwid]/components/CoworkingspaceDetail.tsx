@@ -1,5 +1,9 @@
+"use client"
 import Link from "next/link"
 import Image from 'next/image';
+import deleteCoworkingspace from "@/libs/Coworkingspace/deleteCoworkingspace";
+import { useSession } from "next-auth/react";
+import { SessionUser } from "@/interfaces/Authentication";
 
 interface CoworkingspaceDetailProps{
     id : string,
@@ -14,6 +18,25 @@ interface CoworkingspaceDetailProps{
 }
 
 export default function CoworkingSpaceDetail(props : CoworkingspaceDetailProps){
+    const { data: session } = useSession();
+
+    const handleDelete = async( e: React.FormEvent) =>{
+        e.preventDefault();
+    if(session?.user){
+        const userSession : SessionUser = session
+        const userToken =userSession?.user?.token
+        if(userToken){
+          try{
+            await deleteCoworkingspace(
+              props.id,
+              userToken
+            );
+          }catch(e){
+            throw new Error("Failed to delete Coworking space")
+          }
+        }
+    }
+    }
     return(
         <>
             {/* Title */}
@@ -63,7 +86,8 @@ export default function CoworkingSpaceDetail(props : CoworkingspaceDetailProps){
 
                 {/* Delete Button */}
                 <button
-                className="bg-red-500 text-white px-6 py-2 rounded-lg hover:bg-red-600 transition"
+                    className="bg-red-500 text-white px-6 py-2 rounded-lg hover:bg-red-600 transition"
+                    onClick={handleDelete}
                 >
                 Delete Coworking Space
                 </button>
