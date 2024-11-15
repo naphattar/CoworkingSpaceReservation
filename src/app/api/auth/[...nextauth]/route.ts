@@ -2,6 +2,7 @@ import NextAuth,{AuthOptions} from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import  userLogIn  from "@/libs/auth/userLogIn";
 import userRegister from "@/libs/auth/userRegister";
+import { SessionUser } from "@/interfaces/Authentication";
 export const authOptions: AuthOptions = {
   providers: [
     CredentialsProvider({
@@ -17,7 +18,7 @@ export const authOptions: AuthOptions = {
         const user = await userLogIn(credentials.email, credentials.password);
         if (user && user.token) {
           // Return user object
-          return { id: user._id, name: user.name, email: user.email, token: user.token };
+          return { id: user._id, name: user.name, email: user.email, token: user.token  };
         }
         throw new Error("Login failed");
       },
@@ -65,7 +66,7 @@ export const authOptions: AuthOptions = {
       return { ...token, ...user };
     },
     async session({ session, token }: { session: any, token: any }) {
-      session.user = token as any;
+      session.user = token as SessionUser;
       return session;
       
     }

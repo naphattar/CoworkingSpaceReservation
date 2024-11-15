@@ -7,7 +7,6 @@ export default function Banner() {
   const covers = ['/img/space3.jpg', '/img/space2.jpg', '/img/space1.jpg', '/img/space4.jpg'];
   const [index, setIndex] = useState<number>(0);
   const router = useRouter();
-
   return (
     <div
       className="relative w-screen h-[80vh] flex items-center justify-center overflow-hidden cursor-pointer"
