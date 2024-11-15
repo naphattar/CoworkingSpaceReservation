@@ -1,3 +1,5 @@
+import { Session } from "next-auth";
+
 export interface UserLogInResponse {
     success: boolean,
     _id: string,
@@ -19,9 +21,11 @@ export interface UserLogInResponse {
     }
   }
 
-  export interface SessionUser{
+  export interface SessionUser extends Session{
+    user? : {
       name?: string | null;
       email?: string | null;
       image?: string | null;
       token? : string | null
+    }
   }
