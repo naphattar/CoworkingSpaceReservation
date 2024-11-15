@@ -53,6 +53,7 @@ export default function EditCoworkingspaceForm({
         }catch(e){
           throw new Error("Failed to update Coworking space")
         }
+        router.push("/coworkingspace/" + coworkingspaceId)
       }
     }
   };
