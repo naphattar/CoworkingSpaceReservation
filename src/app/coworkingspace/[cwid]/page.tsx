@@ -1,4 +1,3 @@
-import { mockCoworkingSpace } from "@/constants/constant";
 import getCoworkingspace from "@/libs/Coworkingspace/getCoworkingspace";
 import Image from "next/image";
 
