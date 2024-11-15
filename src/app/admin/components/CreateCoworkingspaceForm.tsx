@@ -22,6 +22,17 @@ export default function CreateCoworkingSpaceForm() {
     return false
   }
 
+  const clearForm =() => {
+    setName("")
+    setAddress("")
+    setStartHours("")
+    setEndHours("")
+    setPostalCode("")
+    setTel("")
+    setPicture("")
+    setProvince("")
+  }
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if(session?.user){
@@ -42,6 +53,7 @@ export default function CreateCoworkingSpaceForm() {
           }catch(e){
             throw new Error("Failed to create new Coworking space")
           }
+          clearForm();
         }
     }
   };
