@@ -36,8 +36,8 @@ export default function CreateCoworkingSpaceForm() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if(session?.user){
-        const userSession : SessionUser = session?.user
-        const userToken =userSession.token
+        const userSession : SessionUser = session
+        const userToken =userSession?.user?.token
         if(userToken){
           try{
             await createCoworkingspace(
