@@ -21,11 +21,3 @@ export interface UserLogInResponse {
     }
   }
 
-  export interface SessionUser extends Session{
-    user? : {
-      name?: string | null;
-      email?: string | null;
-      image?: string | null;
-      token? : string | null
-    }
-  }

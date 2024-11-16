@@ -4,7 +4,7 @@ const API_BASE_URL = process.env.API_URL || 'http://localhost:5000';
 
 
 const getBookings = async (
- 
+  token: string
   ): Promise<getBookingsResponse> => {
     const API_URL = `${API_BASE_URL}/api/v1/bookings`;
     
@@ -12,6 +12,7 @@ const getBookings = async (
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
       },
      
     });
