@@ -3,7 +3,8 @@ const API_BASE_URL = process.env.API_URL || 'http://localhost:5000';
 
 
 
-const createBooking = async (bookingData :CreateBookingRequest
+const createBooking = async (bookingData :CreateBookingRequest,
+  token: string
  
   ): Promise<createBookingResponse> => {
     const API_URL = `${API_BASE_URL}/api/v1/bookings`;
@@ -12,6 +13,7 @@ const createBooking = async (bookingData :CreateBookingRequest
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
       },
         body: JSON.stringify(bookingData),
      
