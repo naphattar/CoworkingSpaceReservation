@@ -6,6 +6,7 @@ const API_BASE_URL = process.env.API_URL || 'http://localhost:5000';
 const updateBooking = async (
     bookingId: string,
     updatedData: CreateBookingRequest,
+    token: string
   ): Promise<createBookingResponse> => {
     const API_URL = `${API_BASE_URL}/api/v1/bookings/${bookingId}`;
     
@@ -13,6 +14,7 @@ const updateBooking = async (
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
       },
       body: JSON.stringify(updatedData),
     });

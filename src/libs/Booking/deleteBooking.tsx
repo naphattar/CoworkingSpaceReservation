@@ -1,12 +1,13 @@
 const API_BASE_URL = process.env.API_URL || 'http://localhost:5000';
 
-const deleteBooking = async (bookingId: string): Promise<deleteBookingResponse> => {
+const deleteBooking = async (bookingId: string,token: string): Promise<deleteBookingResponse> => {
   const API_URL = `${API_BASE_URL}/api/v1/bookings/${bookingId}`;
   
   const res = await fetch(API_URL, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`,
     },
   });
 
