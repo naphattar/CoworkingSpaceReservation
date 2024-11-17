@@ -5,7 +5,6 @@ import DateReserve from "./DateReserve"
 import { Dayjs } from "dayjs";
 import LocationReserve from "./LocationReserve";
 import { useSession } from "next-auth/react";
-import { SessionUser } from "@/interfaces/Authentication";
 import createBooking from "@/libs/Booking/createBooking";
 
 
@@ -18,8 +17,7 @@ export default function CreateBookingForm({coworkingspaceJson} : {coworkingspace
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if(session?.user){
-        const userSession : SessionUser = session
-        const userToken =userSession?.user?.token
+        const userToken =session?.user?.token
         if(userToken && selectDate){
           try{
             await createBooking(
