@@ -14,44 +14,49 @@ export default function TopMenu() {
             </div>
 
             <div className="flex items-center space-x-8">
-                <TopMenuItem 
-                    title={"Home"} 
-                    pageRef={"/"} 
+                <TopMenuItem
+                    title={"Home"}
+                    pageRef={"/"}
                 />
-                <TopMenuItem 
-                    title={"Booking"} 
-                    pageRef={"/booking"} 
-                />
+
                 {status === 'loading' ? (
                     null
-                    ) : session ? (
-                    <TopMenuItem 
-                        title={"Admin"} 
-                        pageRef={"/admin"}
-                    />
-                    ) : null
+                ) : session ? (
+                    <TopMenuItem
+                        title={"Booking"}
+                        pageRef={"/booking"}
+                    />) : null
                 }
                 {status === 'loading' ? (
-                    <TopMenuItem 
-                        title={"login"} 
-                        pageRef={"/api/auth/signin?callbackUrl=/"} 
-                    /> 
-                    ) : session ? (
-                    <TopMenuItem 
-                        title={"logout"} 
+                    null
+                ) : session ? (
+                    <TopMenuItem
+                        title={"Admin"}
+                        pageRef={"/admin"}
+                    />
+                ) : null
+                }
+                {status === 'loading' ? (
+                    <TopMenuItem
+                        title={"login"}
+                        pageRef={"/api/auth/signin?callbackUrl=/"}
+                    />
+                ) : session ? (
+                    <TopMenuItem
+                        title={"logout"}
                         pageRef={"/api/auth/signout"}
                     />
-                    ) : (
-                    <TopMenuItem 
-                        title={"login"} 
-                        pageRef={"/api/auth/signin?callbackUrl=/"} 
-                        /> 
-                    )
-                    
+                ) : (
+                    <TopMenuItem
+                        title={"login"}
+                        pageRef={"/api/auth/signin?callbackUrl=/"}
+                    />
+                )
+
                 }
                 <div className="p-1 rounded-full border border-gray-300 shadow-md hover:shadow-lg transition-shadow duration-300 ease-in-out">
-                    <Image 
-                        src={"/img/logo.jpg"} 
+                    <Image
+                        src={"/img/logo.jpg"}
                         alt={"logo"}
                         width={30}
                         height={30}

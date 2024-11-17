@@ -7,11 +7,15 @@ import { getSession } from 'next-auth/react';
 import { getServerSession } from "next-auth";
 import BookingList from "./components/BookingList";
 import { Suspense } from "react";
-
+import { redirect } from 'next/navigation'; 
 
 export default async function CoWorkingSpacePage() {
     const session = await getServerSession(authOptions)
-    if(!session || !session.user.token) return null;
+    if(!session || !session.user.token) {
+      redirect('/');
+      return null;
+
+    }
 
     const booking = await getBookings(session.user.token)
 
