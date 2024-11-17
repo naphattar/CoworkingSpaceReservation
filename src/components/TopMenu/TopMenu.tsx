@@ -31,6 +31,15 @@ export default function TopMenu() {
                     null
                 ) : session ? (
                     <TopMenuItem
+                        title={"Booking History"}
+                        pageRef={"/booking-history"}
+                    />) : null
+                }
+
+                {status === 'loading' ? (
+                    null
+                ) : session ? (
+                    <TopMenuItem
                         title={"Admin"}
                         pageRef={"/admin"}
                     />
