@@ -1,12 +1,8 @@
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
-import { SessionUser } from "@/interfaces/Authentication";
 import getCoworkingspace from "@/libs/Coworkingspace/getCoworkingspace";
-import { getServerSession } from "next-auth";
 import EditCoworkingspaceForm from "../components/EditCoworkingspaceForm";
 
 export default async function EditCoworkingspacePage({ params }: { params: { cwid: string } }) {
   const coworkingspace = await getCoworkingspace(params.cwid);
-  const session: SessionUser | null = await getServerSession(authOptions);
 
   return (
     <main className="p-6">

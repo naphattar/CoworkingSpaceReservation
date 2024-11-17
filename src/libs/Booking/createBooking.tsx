@@ -3,17 +3,18 @@ const API_BASE_URL = process.env.API_URL || 'http://localhost:5000';
 
 
 
-const createBooking = async (bookingData :CreateBookingRequest,
-  token: string
- 
+const createBooking = async (
+  bookingData :CreateBookingRequest,
+  coworkingspaceId : string,
+  token? : string
   ): Promise<createBookingResponse> => {
-    const API_URL = `${API_BASE_URL}/api/v1/bookings`;
+    const API_URL = `${API_BASE_URL}/api/v1/coworkingspaces/${coworkingspaceId}/bookings`;
     
     const res = await fetch(API_URL, {
       method: 'POST',
       headers: {
+        'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
       },
         body: JSON.stringify(bookingData),
      

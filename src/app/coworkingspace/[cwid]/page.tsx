@@ -1,13 +1,12 @@
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
-import { SessionUser } from "@/interfaces/Authentication";
 import getUserProfile from "@/libs/auth/getUserProfile";
 import getCoworkingspace from "@/libs/Coworkingspace/getCoworkingspace";
 import { getServerSession } from "next-auth";
 import CoworkingSpaceDetail from "./components/CoworkingspaceDetail";
+import { authOptions } from "@/app/api/auth/[...nextauth]/authOptions";
 
 export default async function CoworkingSpaceDetailPage({ params }: { params: { cwid: string } }) {
   const coworkingspace = await getCoworkingspace(params.cwid);
-  const session: SessionUser | null = await getServerSession(authOptions);
+  const session = await getServerSession(authOptions);
   let isAdmin = false;
   if (session?.user?.token) {
     try {

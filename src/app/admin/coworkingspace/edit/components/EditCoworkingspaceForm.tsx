@@ -4,7 +4,6 @@ import { useState } from "react";
 import { TextField, Button } from "@mui/material";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
-import { SessionUser } from "@/interfaces/Authentication";
 import updateCoworkingspace from "@/libs/Coworkingspace/updateCoworkingspace";
 
 interface EditCoworkingspaceFormProps {
@@ -35,8 +34,7 @@ export default function EditCoworkingspaceForm({
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if(session?.user){
-      const userSession : SessionUser = session
-      const userToken =userSession?.user?.token
+      const userToken =session?.user?.token
       if(userToken){
         try{
           await updateCoworkingspace(
