@@ -16,6 +16,24 @@ const BookingList: React.FC<{ bookings: getBookingsResponse, session: Session }>
     setIsFirstRender(false); // Disable initial render after mounting
   }, []);
 
+  // Disable scroll when modal is open
+  useEffect(() => {
+    if (isModalOpen) {
+      // Disable scroll
+      document.body.style.overflow = 'hidden';
+    } else {
+      // Enable scroll
+      document.body.style.overflow = 'auto';
+    }
+
+    // Cleanup to reset overflow when the component unmounts
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
+  }, [isModalOpen]);
+
+
+
   const handleEditClick = (booking: Booking) => {
     setSelectedBooking(booking);
     setIsModalOpen(true);
@@ -113,7 +131,7 @@ const BookingList: React.FC<{ bookings: getBookingsResponse, session: Session }>
       ))}
       <EditModal
         isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
+        onClose={() => {setIsModalOpen(false);setSelectedBooking(null);} }
         booking={selectedBooking}
         onUpdate={handleUpdate}
         session={session}
