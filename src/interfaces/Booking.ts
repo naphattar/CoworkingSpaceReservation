@@ -4,7 +4,7 @@
 interface CreateBookingRequest {
     bookingDate: string;
     numOfRooms: number;
-    createdAt: string;
+    createdAt?: string;
   }
   
 
