@@ -11,6 +11,7 @@ const BookingList: React.FC<{ bookings: getBookingsResponse, session: Session }>
   const [selectedBooking, setSelectedBooking] = useState<Booking | null>(null);
   const [updatedBookings, setUpdatedBookings] = useState(bookings.data);
   const [isFirstRender, setIsFirstRender] = useState(true);
+  console.log(session);
 
   useEffect(() => {
     setIsFirstRender(false); // Disable initial render after mounting
@@ -102,7 +103,10 @@ const BookingList: React.FC<{ bookings: getBookingsResponse, session: Session }>
           >
             Number of Rooms: {booking.numOfRooms}
           </motion.p>
-          
+        <p className="text-gray-600">Create at: {new Date(booking.createdAt).toLocaleDateString('th')}</p>
+        { session.user.role === 'admin' &&
+        <p className="text-gray-600">User : {booking.user}</p>
+        } 
           <div className="mt-4">
             <h3 className="text-gray-700 font-semibold text-lg">Co-Working Space</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-2">

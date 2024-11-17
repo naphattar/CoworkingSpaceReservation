@@ -35,7 +35,7 @@ const EditModal: React.FC<EditModalProps> = ({ isOpen, onClose, booking, onUpdat
     const disabledSave = unupdateBooking === date && unupdateRoom === rooms;
 
     const handleSave = async () => {
-        if (session.user.role !== 'admin' && rooms  > 3) {
+        if (rooms  > 3) {
             setWarning('You can only reverse up to 3 rooms');
             return;
         } else {
