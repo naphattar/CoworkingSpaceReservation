@@ -3,6 +3,7 @@ import NextAuth,{AuthOptions} from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import  userLogIn  from "@/libs/auth/userLogIn";
 import userRegister from "@/libs/auth/userRegister";
+import getUserProfile from "@/libs/auth/getUserProfile";
 export const authOptions: AuthOptions = {
     providers: [
       CredentialsProvider({
@@ -16,9 +17,11 @@ export const authOptions: AuthOptions = {
             throw new Error("No credentials provided");
           }
           const user = await userLogIn(credentials.email, credentials.password);
+          const  me = await getUserProfile(user.token);
+
           if (user && user.token) {
             // Return user object
-            return { id: user._id, name: user.name, email: user.email, token: user.token  };
+            return { id: user._id, name: user.name, email: user.email, token: user.token , role: me.data.role };
           }
           throw new Error("Login failed");
         },
@@ -48,9 +51,11 @@ export const authOptions: AuthOptions = {
               throw new Error("No credentials provided");
             }
             const user = await userRegister(credentials.email, credentials.password,credentials.name,credentials.telephone,credentials.role);
+            const  me = await getUserProfile(user.token);
+
             if (user && user.token) {
               // Return user object
-              return { id: user._id, name: user.name, email: user.email, token: user.token };
+              return { id: user._id, name: user.name, email: user.email, token: user.token, role: me.data.role  };
             }
             throw new Error("Register failed");
           
@@ -63,6 +68,9 @@ export const authOptions: AuthOptions = {
     
     callbacks: {
       async jwt({ token, user }: { token: any, user: any }) {
+        
+        
+        
         return { ...token, ...user };
       },
       async session({ session, token }: { session: any, token: any }) {
