@@ -3,7 +3,7 @@ import { MenuItem, Select } from "@mui/material";
 import { useState } from "react";
 
 export default function LocationReserve({ locations , onLocationChange} : { locations : CoWorkingSpace[],onLocationChange : Function}){
-    const [selectCoworkingspace,setSelectCoworkingspace] = useState<string>("Chulalongkorn Coworkingspace")
+    const [selectCoworkingspace,setSelectCoworkingspace] = useState<string>("")
     return(
         <Select
               variant="standard"
@@ -18,7 +18,7 @@ export default function LocationReserve({ locations , onLocationChange} : { loca
               }}
         >
             {locations.map((location) => {
-              return <MenuItem value={location.id}>{location.name}</MenuItem>
+              return <MenuItem  key={location.id} value={location.id}>{location.name}</MenuItem>
             })}
         </Select>
     );
