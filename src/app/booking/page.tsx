@@ -6,6 +6,7 @@ import { authOptions } from "@/app/api/auth/[...nextauth]/authOptions";
 import { getSession } from 'next-auth/react';
 import { getServerSession } from "next-auth";
 import BookingList from "./components/BookingList";
+import { Suspense } from "react";
 
 
 export default async function CoWorkingSpacePage() {
@@ -17,8 +18,9 @@ export default async function CoWorkingSpacePage() {
 
      return (
     <main className={styles.main}>
-
-        <BookingList bookings={booking} session = {session.user.token}  />
+        <Suspense >
+        <BookingList bookings={booking} session = {session}  />
+        </Suspense>
     </main>
   );
 }
