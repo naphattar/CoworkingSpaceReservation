@@ -1,10 +1,10 @@
 'use client';
 
-import React, { useState,useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import EditModal from './EditBookingModal';
+import deleteBooking from '@/libs/Booking/deleteBooking';
 import { Session } from "next-auth";
-import { motion } from 'framer-motion';
-
+import { motion,AnimatePresence } from 'framer-motion';
 
 const BookingList: React.FC<{ bookings: getBookingsResponse, session: Session }> = ({ bookings, session }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -27,14 +27,44 @@ const BookingList: React.FC<{ bookings: getBookingsResponse, session: Session }>
     );
   };
 
+  const handleDelete = async (bookingId: string) => {
+
+    if(bookingId === undefined) return;
+
+
+    if (confirm('Are you sure you want to delete this booking?')) {
+      try {
+        const data =  await deleteBooking(bookingId, session.user.token);
+
+        if (data.success) {
+          setUpdatedBookings((prev) =>
+            prev.filter((booking) => booking._id !== bookingId)
+          );
+        } else {
+          console.error('Error deleting booking:', data);
+        }
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    }
+  };
+
   if (!bookings.success || bookings.count === 0) {
     return <div className="text-center text-red-500">No bookings available</div>;
   }
 
   return (
     <div className="space-y-4 p-4">
+        <AnimatePresence>
       {updatedBookings.map((booking) => (
-        <div key={booking._id} className="border p-4 rounded-lg shadow-lg bg-white">
+        <motion.div
+          key={booking._id}
+          className="border p-4 rounded-lg shadow-lg bg-white"
+          initial={{ opacity: 1 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0, scale: 0.9 }}
+          transition={{ duration: 0.3 }}
+        >
           <motion.h2
             className="text-gray-700 text-xl font-semibold"
             key={booking.bookingDate} // Trigger reanimation on date change
@@ -45,7 +75,6 @@ const BookingList: React.FC<{ bookings: getBookingsResponse, session: Session }>
             {`Booking Date: ${new Date(booking.bookingDate).toLocaleDateString('th')}`}
           </motion.h2>
 
-          {/* <p className="text-gray-600">User: {booking.user}</p> */}
           <motion.p
             className="text-gray-600"
             key={booking.numOfRooms} // Trigger reanimation on rooms change
@@ -55,6 +84,7 @@ const BookingList: React.FC<{ bookings: getBookingsResponse, session: Session }>
           >
             Number of Rooms: {booking.numOfRooms}
           </motion.p>
+          
           <div className="mt-4">
             <h3 className="text-gray-700 font-semibold text-lg">Co-Working Space</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-2">
@@ -65,15 +95,21 @@ const BookingList: React.FC<{ bookings: getBookingsResponse, session: Session }>
               </div>
             </div>
           </div>
-          <div className="mt-4 flex justify-end">
+          <div className="mt-4 flex justify-end space-x-2">
             <button
               onClick={() => handleEditClick(booking)}
               className="px-4 py-2 bg-blue-500 text-white rounded-md"
             >
               Edit
             </button>
+            <button
+              onClick={() => handleDelete(booking._id as string)}
+              className="px-4 py-2 bg-red-500 text-white rounded-md"
+            >
+              Delete
+            </button>
           </div>
-        </div>
+        </motion.div>
       ))}
       <EditModal
         isOpen={isModalOpen}
@@ -82,6 +118,7 @@ const BookingList: React.FC<{ bookings: getBookingsResponse, session: Session }>
         onUpdate={handleUpdate}
         session={session}
       />
+      </AnimatePresence>
     </div>
   );
 };
