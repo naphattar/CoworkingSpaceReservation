@@ -3,7 +3,6 @@
 import styles from "@/app/page.module.css";
 import getBookings from "@/libs/Booking/getBookings";
 import { authOptions } from "@/app/api/auth/[...nextauth]/authOptions";
-import { getSession } from 'next-auth/react';
 import { getServerSession } from "next-auth";
 import BookingList from "./components/BookingList";
 import { Suspense } from "react";

@@ -1,7 +1,11 @@
 import getCoworkingspace from "@/libs/Coworkingspace/getCoworkingspace";
 import EditCoworkingspaceForm from "../components/EditCoworkingspaceForm";
+import { checkPermission } from "@/libs/utils";
 
 export default async function EditCoworkingspacePage({ params }: { params: { cwid: string } }) {
+
+  await checkPermission('admin')
+
   const coworkingspace = await getCoworkingspace(params.cwid);
 
   return (

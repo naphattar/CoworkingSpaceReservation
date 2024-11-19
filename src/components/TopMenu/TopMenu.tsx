@@ -38,7 +38,7 @@ export default function TopMenu() {
 
                 {status === 'loading' ? (
                     null
-                ) : session ? (
+                ) : session?.user.role == 'admin' ? (
                     <TopMenuItem
                         title={"Admin"}
                         pageRef={"/admin"}
