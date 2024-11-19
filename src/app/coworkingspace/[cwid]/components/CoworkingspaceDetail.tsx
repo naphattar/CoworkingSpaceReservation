@@ -3,6 +3,7 @@ import Link from "next/link"
 import Image from 'next/image';
 import deleteCoworkingspace from "@/libs/Coworkingspace/deleteCoworkingspace";
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 interface CoworkingspaceDetailProps{
     coworkingspaceData : {
@@ -20,22 +21,27 @@ interface CoworkingspaceDetailProps{
 
 export default function CoworkingSpaceDetail(props : CoworkingspaceDetailProps){
     const { data: session } = useSession();
+    const router = useRouter();
+
     const handleDelete = async( e: React.FormEvent) =>{
         e.preventDefault();
-    if(session?.user){
-        const userSession = session
-        const userToken =userSession?.user?.token
-        if(userToken){
-          try{
-            await deleteCoworkingspace(
-              props.coworkingspaceId,
-              userToken
-            );
-          }catch(e){
-            throw new Error("Failed to delete Coworking space")
-          }
+        if(session?.user){
+            const userSession = session
+            const userToken =userSession?.user?.token
+            if(userToken){
+                try{
+                    const deleted = await deleteCoworkingspace(
+                        props.coworkingspaceId,
+                        userToken
+                    );
+                    if(deleted.success){
+                        router.push("/coworkingspace")
+                    }
+                }catch(e){
+                    throw new Error("Failed to delete Coworking space")
+                }
+            }
         }
-    }
     }
     return(
         <>
