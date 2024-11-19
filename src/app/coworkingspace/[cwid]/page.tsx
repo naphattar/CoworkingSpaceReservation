@@ -21,7 +21,15 @@ export default async function CoworkingSpaceDetailPage({ params }: { params: { c
     <main className="p-6">
       <CoworkingSpaceDetail
         coworkingspaceId={params.cwid} 
-        coworkingspaceData={coworkingspace.data}
+        coworkingspaceData={{
+          name: coworkingspace.data.name,
+          address: coworkingspace.data.address,
+          operatingHours: coworkingspace.data.operatingHours,
+          province: coworkingspace.data.province,
+          postalcode: coworkingspace.data.postalcode,
+          tel: coworkingspace.data.tel,
+          picture: coworkingspace.data.picture,
+        }}
         isAdmin={isAdmin}      
       />
     </main>
