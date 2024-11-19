@@ -52,45 +52,48 @@ export default function CreateBookingForm({ coworkingspaceJson }: { coworkingspa
   };
 
   return (
-    <FormControl className="flex flex-col bg-white rounded-lg shadow-lg space-y-8 w-[90%] max-w-md p-6">
-      {/* Header */}
-      <h2 className="text-lg font-semibold text-gray-800 text-center">Create a Coworking Space Booking</h2>
+    <FormControl className="flex flex-col bg-white rounded-lg shadow-lg space-y-8 w-[90%] max-w-md items-center">
+  {/* Header */}
+  <h2 className="text-lg font-semibold text-gray-800 text-center mt-6">
+    Create a Coworking Space Booking
+  </h2>
 
-      {/* Number of Rooms */}
-      <TextField
-        variant="outlined"
-        name="Number Of Rooms"
-        label="Number Of Rooms"
-        type="number"
-        className="w-full"
-        value={numOfRooms}
-        onChange={(e) => setNumOfRooms(parseInt(e.target.value))}
-        inputProps={{ min: 1, max: 3 }}
-      />
+  {/* Number of Rooms */}
+  <TextField
+    variant="outlined"
+    name="Number Of Rooms"
+    label="Number Of Rooms"
+    type="number"
+    className="w-[95%]"
+    value={numOfRooms}
+    onChange={(e) => setNumOfRooms(parseInt(e.target.value))}
+    inputProps={{ min: 1, max: 3 }}
+  />
 
-      {/* Booking Date */}
-      <div className="w-full space-y-2">
-        <label className="block text-sm font-medium text-gray-700">Select Booking Date</label>
-        <DateReserve onDateChange={(value: Dayjs) => setSelectDate(value)} />
-      </div>
+  {/* Booking Date */}
+  <div className="space-y-2 w-[95%]">
+    <label className="block text-sm font-medium text-gray-700">Select Booking Date</label>
+    <DateReserve onDateChange={(value: Dayjs) => setSelectDate(value)} />
+  </div>
 
-      {/* Select Location */}
-      <div className="w-full space-y-2">
-        <label className="block text-sm font-medium text-gray-700">Select Coworking Space</label>
-        <LocationReserve
-          locations={coworkingspaceJson.data}
-          onLocationChange={(value: string) => setCoworkingspaceId(value)}
-        />
-      </div>
+  {/* Select Location */}
+  <div className="w-[95%] space-y-2">
+    <label className="block text-sm font-medium text-gray-700">Select Coworking Space</label>
+    <LocationReserve
+      locations={coworkingspaceJson.data}
+      onLocationChange={(value: string) => setCoworkingspaceId(value)}
+    />
+  </div>
 
-      {/* Submit Button */}
-      <button
-        className="block w-full rounded-md bg-sky-600 hover:bg-sky-700 px-4 py-2 shadow-lg text-white font-medium transition duration-300"
-        name="Book Coworkingspace"
-        onClick={handleSubmit}
-      >
-        Book Coworkingspace
-      </button>
-    </FormControl>
+  {/* Submit Button */}
+  <button
+    className="w-[95%] block rounded-md bg-sky-600 hover:bg-sky-700 px-4 py-2 shadow-lg text-white font-medium transition duration-300"
+    name="Book Coworkingspace"
+    onClick={handleSubmit}
+  >
+    Book Coworkingspace
+  </button>
+  <p></p>
+</FormControl>
   );
 }
