@@ -1,6 +1,6 @@
 "use client";
 
-import { useSession, signOut, signIn } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import Link from "next/link";
 import TopMenuItem from "./TopMenuItem";
 import { useState } from "react";
@@ -20,6 +20,7 @@ export default function TopMenu() {
             </Link>
             <div className="flex items-center space-x-8">
                 <TopMenuItem title={"Home"} pageRef={"/"} />
+                <TopMenuItem title={"Coworkingspaces"} pageRef={"/coworkingspace"} />
                 {status === "loading" ? null : session && (
                     <>
                         <TopMenuItem title={"Booking"} pageRef={"/booking"} />

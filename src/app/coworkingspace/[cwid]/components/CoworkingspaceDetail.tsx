@@ -3,7 +3,6 @@ import Link from "next/link"
 import Image from 'next/image';
 import deleteCoworkingspace from "@/libs/Coworkingspace/deleteCoworkingspace";
 import { useSession } from "next-auth/react";
-import { Session } from "next-auth";
 
 interface CoworkingspaceDetailProps{
     id : string,

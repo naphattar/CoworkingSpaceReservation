@@ -1,6 +1,7 @@
 "use client";
 import createCoworkingspace from "@/libs/Coworkingspace/createCoworkingspace";
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 export default function CreateCoworkingSpaceForm() {
@@ -13,6 +14,7 @@ export default function CreateCoworkingSpaceForm() {
   const [tel, setTel] = useState("");
   const [picture, setPicture] = useState("");
   const { data: session } = useSession();
+  const router = useRouter();
 
   const checkOperatingHoursError = () =>{
     if(startHours !== "" && endHours !== "" && startHours > endHours){
@@ -38,7 +40,7 @@ export default function CreateCoworkingSpaceForm() {
         const userToken =session?.user?.token
         if(userToken){
           try{
-            await createCoworkingspace(
+            const newCoworkingspace = await createCoworkingspace(
               name,
               address,
               `${startHours} - ${endHours}`,
@@ -48,6 +50,9 @@ export default function CreateCoworkingSpaceForm() {
               picture,
               userToken
             );
+            if(newCoworkingspace.success){
+              router.push("/admin")
+            }
           }catch(e){
             throw new Error("Failed to create new Coworking space")
           }

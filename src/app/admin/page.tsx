@@ -5,7 +5,6 @@ import Link from "next/link";
 import CoworkingspaceCatalog from "../coworkingspace/components/CoworkingspaceCatalog";
 import { authOptions } from "@/app/api/auth/[...nextauth]/authOptions";
 import { getServerSession } from "next-auth";
-import { redirect } from 'next/navigation'; 
 import {checkPermission} from "@/libs/utils";
 
 

@@ -37,7 +37,7 @@ export default function EditCoworkingspaceForm({
       const userToken =session?.user?.token
       if(userToken){
         try{
-          await updateCoworkingspace(
+          const updatedCoworkingspace = await updateCoworkingspace(
             coworkingspaceId,
             formData.name,
             formData.address,
@@ -48,10 +48,12 @@ export default function EditCoworkingspaceForm({
             formData.picture,
             userToken
           );
+          if(updatedCoworkingspace.success){
+            router.push("/coworkingspace/" + coworkingspaceId)
+          }
         }catch(e){
           throw new Error("Failed to update Coworking space")
         }
-        router.push("/coworkingspace/" + coworkingspaceId)
       }
     }
   };
