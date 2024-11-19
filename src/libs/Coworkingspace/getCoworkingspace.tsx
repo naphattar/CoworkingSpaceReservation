@@ -3,6 +3,7 @@ import { makeFetchDelay } from "../utils";
 export default async function getCoworkingspace(id : string){
     
     makeFetchDelay()
+    try {
     const API_URL = (process.env.API_URL || 'http://localhost:5000')+ '/api/v1/coworkingspaces/' + id;
     
     const response = await fetch(API_URL ,{
@@ -15,4 +16,9 @@ export default async function getCoworkingspace(id : string){
         throw new Error("Failed to fetch coworkingspace");
     }
     return await response.json()
+  }
+  catch(error) {
+    console.error(error);
+    throw error;
+  }
 }

@@ -1,10 +1,19 @@
 import { Suspense } from "react";
 import getCoworkingspaces from "@/libs/Coworkingspace/getCoworkingspaces";
 import { LinearProgress } from "@mui/material";
-import Link from "next/link"; 
+import Link from "next/link";
 import CoworkingspaceCatalog from "../coworkingspace/components/CoworkingspaceCatalog";
+import { authOptions } from "@/app/api/auth/[...nextauth]/authOptions";
+import { getServerSession } from "next-auth";
+import { redirect } from 'next/navigation'; 
+import {checkPermission} from "@/libs/utils";
+
 
 export default async function AdminPage() {
+
+  const session = await getServerSession(authOptions)
+  await checkPermission('admin')
+
   const coworkingspaces = await getCoworkingspaces();
 
   return (
