@@ -15,7 +15,8 @@ export default async function getCoworkingspaces(){
     if(!response.ok){
         throw new Error("Failed to fetch coworkingspaces");
     }
-    return await response.json()
+    const data = await response.json()
+    return data;
 }
 catch(error) {
     console.error(error);

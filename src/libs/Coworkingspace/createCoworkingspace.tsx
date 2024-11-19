@@ -31,12 +31,14 @@ export default async function createCoworkingspace(
             }),
 
         }
+        
 
         );
         if (!response.ok) {
             throw new Error("Failed to create coworkingspace");
         }
-        return await response.json()
+        const data = await response.json()
+        return data;
     }
     catch (error) {
         console.error(error);

@@ -12,10 +12,14 @@ export default async function getCoworkingspace(id : string){
         'Content-Type': 'application/json',
       }
     });
+    if (response.status === 404) {
+      throw new Error(`Coworkingspace with ID ${id} not found.`);
+  }
     if(!response.ok){
         throw new Error("Failed to fetch coworkingspace");
     }
-    return await response.json()
+    const data = await response.json()
+    return data;
   }
   catch(error) {
     console.error(error);

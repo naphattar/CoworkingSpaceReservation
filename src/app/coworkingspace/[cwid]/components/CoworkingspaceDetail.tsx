@@ -5,20 +5,21 @@ import deleteCoworkingspace from "@/libs/Coworkingspace/deleteCoworkingspace";
 import { useSession } from "next-auth/react";
 
 interface CoworkingspaceDetailProps{
-    id : string,
-    name : string,
-    picture : string,
-    address : string,
-    operatingHours : string,
-    province : string,
-    postalcode : string,
-    tel : string,
-    isAdmin : boolean
+    coworkingspaceData : {
+        name: string;
+        address: string;
+        operatingHours: string;
+        province: string;
+        postalcode: string;
+        tel: string;
+        picture: string;
+      };
+    coworkingspaceId: string;
+    isAdmin : boolean;
 }
 
 export default function CoworkingSpaceDetail(props : CoworkingspaceDetailProps){
     const { data: session } = useSession();
-
     const handleDelete = async( e: React.FormEvent) =>{
         e.preventDefault();
     if(session?.user){
@@ -27,7 +28,7 @@ export default function CoworkingSpaceDetail(props : CoworkingspaceDetailProps){
         if(userToken){
           try{
             await deleteCoworkingspace(
-              props.id,
+              props.coworkingspaceId,
               userToken
             );
           }catch(e){
@@ -39,14 +40,14 @@ export default function CoworkingSpaceDetail(props : CoworkingspaceDetailProps){
     return(
         <>
             {/* Title */}
-                <h1 className="text-2xl font-bold text-gray-800 mb-4 text-center">{props.name}</h1>
+                <h1 className="text-2xl font-bold text-gray-800 mb-4 text-center">{props.coworkingspaceData.name}</h1>
 
             {/* Details Section */}
             <div className="flex flex-col md:flex-row items-center md:items-start md:space-x-8 bg-white shadow-lg rounded-lg p-6 md:p-8">
             {/* Image */}
                 <Image
-                    src={props.picture}
-                    alt={`Coworking space ${props.id}`}
+                    src={props.coworkingspaceData.picture}
+                    alt={`Coworking space ${props.coworkingspaceId}`}
                     width={0}
                     height={0}
                     sizes="100vw"
@@ -56,19 +57,19 @@ export default function CoworkingSpaceDetail(props : CoworkingspaceDetailProps){
             {/* Information */}
             <div className="mt-4 md:mt-0 w-full md:w-2/3 text-left space-y-3">
                 <p className="text-lg">
-                <span className="font-semibold text-gray-700">Address:</span> {props.address}
+                <span className="font-semibold text-gray-700">Address:</span> {props.coworkingspaceData.address}
                 </p>
                 <p className="text-lg">
-                <span className="font-semibold text-gray-700">Operating Hours:</span> {props.operatingHours}
+                <span className="font-semibold text-gray-700">Operating Hours:</span> {props.coworkingspaceData.operatingHours}
                 </p>
                 <p className="text-lg">
-                <span className="font-semibold text-gray-700">Province:</span> {props.province}
+                <span className="font-semibold text-gray-700">Province:</span> {props.coworkingspaceData.province}
                 </p>
                 <p className="text-lg">
-                <span className="font-semibold text-gray-700">Postal Code:</span> {props.postalcode}
+                <span className="font-semibold text-gray-700">Postal Code:</span> {props.coworkingspaceData.postalcode}
                 </p>
                 <p className="text-lg">
-                <span className="font-semibold text-gray-700">Telephone:</span> {props.tel}
+                <span className="font-semibold text-gray-700">Telephone:</span> {props.coworkingspaceData.tel}
                 </p>
             </div>
             </div>
@@ -77,7 +78,7 @@ export default function CoworkingSpaceDetail(props : CoworkingspaceDetailProps){
             {props.isAdmin && (
             <div className="mt-8 flex justify-center space-x-4">
                 {/* Edit Button */}
-                <Link href={`/admin/coworkingspace/edit/${props.id}`}>
+                <Link href={`/admin/coworkingspace/edit/${props.coworkingspaceId}`}>
                 <button className="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition">
                     Edit Coworking Space
                 </button>
