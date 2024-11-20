@@ -51,7 +51,7 @@ export default function CreateCoworkingSpaceForm() {
               userToken
             );
             if(newCoworkingspace.success){
-              router.push("/admin")
+              router.push("/coworkingspace")
             }
           }catch(e){
             throw new Error("Failed to create new Coworking space")

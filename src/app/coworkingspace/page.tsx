@@ -1,18 +1,33 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import styles from "@/app/page.module.css";
-import { LinearProgress } from "@mui/material";
-import { Suspense } from "react";
 import CoworkingspaceCatalog from "./components/CoworkingspaceCatalog";
 import getCoworkingspaces from "@/libs/Coworkingspace/getCoworkingspaces";
-import { refetchPage } from "@/libs/utils";
 
-export default async function CoWorkingSpacePage() {
-  await refetchPage()
-  const coworkingspace = await getCoworkingspaces()
-     return (
+export default function CoWorkingSpacePage() {
+  const [coworkingspaces, setCoworkingspaces] = useState<CoWorkingSpace[]>([]);
+
+  useEffect(() => {
+    const fetchCoworkingspaces = async () => {
+      try {
+        const coworkingData = await getCoworkingspaces();
+        setCoworkingspaces(coworkingData.data);
+      } catch (error) {
+        console.error("Error fetching coworking spaces:", error);
+      } 
+    };
+
+    fetchCoworkingspaces();
+  }, []);
+
+  if (!coworkingspaces) {
+    return <p>Unable to load coworking spaces.</p>;
+  }
+
+  return (
     <main className={styles.main}>
-      <Suspense fallback={<LinearProgress/>}>
-        <CoworkingspaceCatalog coworkingspaceJson={coworkingspace} />
-      </Suspense>
+      <CoworkingspaceCatalog coworkingspaces={coworkingspaces} />
     </main>
   );
 }

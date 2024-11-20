@@ -1,8 +1,5 @@
-import { Suspense } from "react";
 import getCoworkingspaces from "@/libs/Coworkingspace/getCoworkingspaces";
-import { LinearProgress } from "@mui/material";
 import Link from "next/link";
-import CoworkingspaceCatalog from "../coworkingspace/components/CoworkingspaceCatalog";
 import { authOptions } from "@/app/api/auth/[...nextauth]/authOptions";
 import { getServerSession } from "next-auth";
 import {checkPermission} from "@/libs/utils";
@@ -29,14 +26,6 @@ export default async function AdminPage() {
           Create Coworking Space
         </Link>
       </div>
-
-      {/* Coworking Space List */}
-      <section className="w-full max-w-6xl bg-white shadow-lg rounded-lg p-6">
-        <h2 className="text-2xl font-semibold text-gray-700 mb-4">Coworking Space List</h2>
-        <Suspense fallback={<LinearProgress className="w-full" />}>
-          <CoworkingspaceCatalog coworkingspaceJson={coworkingspaces} />
-        </Suspense>
-      </section>
     </main>
   );
 }

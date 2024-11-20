@@ -1,11 +1,11 @@
+"use client"
 import Link from "next/link";
 import Card from "@/components/Card/Card";
 
-export default async function CoworkingspaceCatalog({coworkingspaceJson} : {coworkingspaceJson :Promise<CoWorkingSpaceJson>}) {
-    const coworkingspace = await coworkingspaceJson
+export default function CoworkingspaceCatalog({coworkingspaces} : {coworkingspaces : CoWorkingSpace[]}) {
     return (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 p-4">
-            {coworkingspace.data.map((coworkingspace) => (
+            {coworkingspaces.map((coworkingspace) => (
                 <Link
                     href={`/coworkingspace/${coworkingspace.id}`}
                     key={coworkingspace.id}

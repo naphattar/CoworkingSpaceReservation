@@ -1,38 +1,62 @@
-import getUserProfile from "@/libs/auth/getUserProfile";
-import getCoworkingspace from "@/libs/Coworkingspace/getCoworkingspace";
-import { getServerSession } from "next-auth";
-import CoworkingSpaceDetail from "./components/CoworkingspaceDetail";
-import { authOptions } from "@/app/api/auth/[...nextauth]/authOptions";
-import { refetchPage } from "@/libs/utils";
+"use client";
 
-export default async function CoworkingSpaceDetailPage({ params }: { params: { cwid: string } }) {
-  await refetchPage()
-  const coworkingspace = await getCoworkingspace(params.cwid);
-  const session = await getServerSession(authOptions);
-  let isAdmin = false;
-  if (session?.user?.token) {
-    try {
-      const userProfile = await getUserProfile(session.user.token);
-      isAdmin = userProfile.data.role === "admin";
-    } catch (error) {
-      console.error("Error fetching user profile:", error);
+import { useEffect, useState } from "react";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import CoworkingSpaceDetail from "./components/CoworkingspaceDetail";
+import getCoworkingspace from "@/libs/Coworkingspace/getCoworkingspace";
+import getUserProfile from "@/libs/auth/getUserProfile";
+
+export default function CoworkingSpaceDetailPage({ params }: { params: { cwid: string } }) {
+  const [coworkingspace, setCoworkingspace] = useState<CoWorkingSpace>();
+  const [isAdmin, setIsAdmin] = useState(false);
+  const { data: session, status } = useSession();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (status === "unauthenticated") {
+      router.push("/");
+      return;
     }
+    const fetchData = async () => {
+      try {
+        const coworkingData = await getCoworkingspace(params.cwid);
+        setCoworkingspace(coworkingData.data);
+
+        if (session?.user?.token) {
+          const userProfile = await getUserProfile(session.user.token);
+          setIsAdmin(userProfile.data.role === "admin");
+        }
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, [params.cwid, session, status, router]);
+
+  if (status === "loading") {
+    return <p>Loading...</p>;
+  }
+
+  if (!coworkingspace) {
+    return <p>Unable to load coworking space details.</p>;
   }
 
   return (
     <main className="p-6">
       <CoworkingSpaceDetail
-        coworkingspaceId={params.cwid} 
+        coworkingspaceId={params.cwid}
         coworkingspaceData={{
-          name: coworkingspace.data.name,
-          address: coworkingspace.data.address,
-          operatingHours: coworkingspace.data.operatingHours,
-          province: coworkingspace.data.province,
-          postalcode: coworkingspace.data.postalcode,
-          tel: coworkingspace.data.tel,
-          picture: coworkingspace.data.picture,
+          name: coworkingspace.name,
+          address: coworkingspace.address,
+          operatingHours: coworkingspace.operatingHours,
+          province: coworkingspace.province,
+          postalcode: coworkingspace.postalcode,
+          tel: coworkingspace.tel,
+          picture: coworkingspace.picture,
         }}
-        isAdmin={isAdmin}      
+        isAdmin={isAdmin}
       />
     </main>
   );

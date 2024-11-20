@@ -14,7 +14,3 @@ export  const  checkPermission = async (role? : string) =>{
     redirect('/');
     }
 }
-
-export  const  refetchPage = async () =>{
-  const session = await getServerSession(authOptions)
-}
