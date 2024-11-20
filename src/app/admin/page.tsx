@@ -10,8 +10,6 @@ export default async function AdminPage() {
   const session = await getServerSession(authOptions)
   await checkPermission('admin')
 
-  const coworkingspaces = await getCoworkingspaces();
-
   return (
     <main className="flex min-h-screen flex-col items-center justify-start bg-gray-100 p-6">
       {/* Page Title */}
