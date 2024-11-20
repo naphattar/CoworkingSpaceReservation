@@ -1,4 +1,5 @@
 "use client";
+
 import createCoworkingspace from "@/libs/Coworkingspace/createCoworkingspace";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
@@ -13,58 +14,80 @@ export default function CreateCoworkingSpaceForm() {
   const [postalCode, setPostalCode] = useState("");
   const [tel, setTel] = useState("");
   const [picture, setPicture] = useState("https://drive.google.com/uc?id=1jit7S4cRATEfDi64YjjK1ur2jGlZYs2e");
+  const [errors, setErrors] = useState<string[]>([]);
   const { data: session } = useSession();
   const router = useRouter();
 
-  const checkOperatingHoursError = () =>{
-    if(startHours !== "" && endHours !== "" && startHours > endHours){
-        return true
-    }
-    return false
-  }
+  const validateForm = () => {
+    const validationErrors: string[] = [];
 
-  const clearForm =() => {
-    setName("")
-    setAddress("")
-    setStartHours("")
-    setEndHours("")
-    setPostalCode("")
-    setTel("")
-    setPicture("")
-    setProvince("")
-  }
+    if (name.length < 3) validationErrors.push("Name must be at least 3 characters long.");
+    if (address.length < 3) validationErrors.push("Address must be at least 3 characters long.");
+    if (!province) validationErrors.push("Province is required.");
+    if (!/^\d{5}$/.test(postalCode)) validationErrors.push("Postal Code must be a 5-digit number.");
+    if (!/^\d{10}$/.test(tel)) validationErrors.push("Telephone number must be 10 digits.");
+    if (!/^https?:\/\/\S+$/.test(picture)) validationErrors.push("Picture must be a valid URL.");
+    if (startHours && endHours && startHours >= endHours) {
+      validationErrors.push("Start hours must be earlier than end hours.");
+    }
+
+    setErrors(validationErrors);
+    return validationErrors.length === 0;
+  };
+
+  const clearForm = () => {
+    setName("");
+    setAddress("");
+    setStartHours("");
+    setEndHours("");
+    setProvince("");
+    setPostalCode("");
+    setTel("");
+    setPicture("");
+    setErrors([]);
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if(session?.user){
-        const userToken =session?.user?.token
-        if(userToken){
-          try{
-            const newCoworkingspace = await createCoworkingspace(
-              name,
-              address,
-              `${startHours} - ${endHours}`,
-              province,
-              postalCode,
-              tel,
-              picture,
-              userToken
-            );
-            if(newCoworkingspace.success){
-              router.push("/coworkingspace")
-            }
-          }catch(e){
-            throw new Error("Failed to create new Coworking space")
-          }
-          clearForm();
+
+    if (!validateForm()) return;
+
+    if (session?.user?.token) {
+      try {
+        const newCoworkingspace = await createCoworkingspace(
+          name,
+          address,
+          `${startHours} - ${endHours}`,
+          province,
+          postalCode,
+          tel,
+          picture,
+          session.user.token
+        );
+        if (newCoworkingspace.success) {
+          router.push("/coworkingspace");
         }
+      } catch (error) {
+        console.error("Failed to create new coworking space:", error);
+      } finally {
+        clearForm();
+      }
     }
   };
 
   return (
-    <div className="min-h-screen  flex items-center justify-center p-4">
+    <div className="min-h-screen flex items-center justify-center p-4">
       <div className="bg-white shadow-xl rounded-xl p-8 max-w-md w-full space-y-6">
         <h2 className="text-3xl font-bold text-center text-blue-700">Add New Coworking Space</h2>
+        {errors.length > 0 && (
+          <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-2 rounded relative mb-4">
+            <ul className="list-disc ml-5">
+              {errors.map((error, index) => (
+                <li key={index}>{error}</li>
+              ))}
+            </ul>
+          </div>
+        )}
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="flex flex-col">
             <label className="text-gray-700 font-semibold">Name</label>
@@ -88,11 +111,9 @@ export default function CreateCoworkingSpaceForm() {
           </div>
           <div className="flex flex-col">
             <label className="text-gray-700 font-semibold">Operating Hours</label>
-            {checkOperatingHoursError() && <p className="text-red-500 text-sm mt-1">{"End hours should be after start hours."}</p>}
             <div className="flex space-x-4">
               <input
                 type="time"
-                placeholder="Start Hours"
                 value={startHours}
                 onChange={(e) => setStartHours(e.target.value)}
                 className="mt-2 w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
@@ -100,7 +121,6 @@ export default function CreateCoworkingSpaceForm() {
               />
               <input
                 type="time"
-                placeholder="End Hours"
                 value={endHours}
                 onChange={(e) => setEndHours(e.target.value)}
                 className="mt-2 w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
@@ -158,4 +178,4 @@ export default function CreateCoworkingSpaceForm() {
       </div>
     </div>
   );
-};
+}
