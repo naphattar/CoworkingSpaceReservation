@@ -49,7 +49,7 @@ export default function EditCoworkingspaceForm({
             userToken
           );
           if(updatedCoworkingspace.success){
-            router.push("/coworkingspace/" + coworkingspaceId)
+            router.push("/admin")
           }
         }catch(e){
           throw new Error("Failed to update Coworking space")

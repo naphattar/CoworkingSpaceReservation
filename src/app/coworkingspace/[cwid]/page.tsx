@@ -3,8 +3,10 @@ import getCoworkingspace from "@/libs/Coworkingspace/getCoworkingspace";
 import { getServerSession } from "next-auth";
 import CoworkingSpaceDetail from "./components/CoworkingspaceDetail";
 import { authOptions } from "@/app/api/auth/[...nextauth]/authOptions";
+import { refetchPage } from "@/libs/utils";
 
 export default async function CoworkingSpaceDetailPage({ params }: { params: { cwid: string } }) {
+  await refetchPage()
   const coworkingspace = await getCoworkingspace(params.cwid);
   const session = await getServerSession(authOptions);
   let isAdmin = false;

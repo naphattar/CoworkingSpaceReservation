@@ -13,5 +13,8 @@ export  const  checkPermission = async (role? : string) =>{
   if (!session || !session.user.token || session.user.role !== 'admin') {
     redirect('/');
     }
+}
 
+export  const  refetchPage = async () =>{
+  const session = await getServerSession(authOptions)
 }
