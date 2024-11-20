@@ -9,10 +9,11 @@ export default async function getCoworkingspaces(){
     const API_URL = API_BASE_URL+ '/api/v1/coworkingspaces';
 
     const response = await fetch(API_URL ,{
-        headers: {
+      method: 'GET',
+      headers: {
             'Content-Type': 'application/json',
-          },
-        method: 'GET'
+      },
+      cache: 'no-store'
       });
     if(!response.ok){
         throw new Error("Failed to fetch coworkingspaces");

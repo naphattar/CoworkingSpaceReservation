@@ -11,7 +11,8 @@ export default async function getCoworkingspace(id : string){
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-      }
+      },
+      cache: 'no-store'
     });
     if (response.status === 404) {
       throw new Error(`Coworkingspace with ID ${id} not found.`);

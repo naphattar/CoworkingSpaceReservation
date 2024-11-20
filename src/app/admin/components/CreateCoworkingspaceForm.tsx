@@ -12,7 +12,7 @@ export default function CreateCoworkingSpaceForm() {
   const [province, setProvince] = useState("");
   const [postalCode, setPostalCode] = useState("");
   const [tel, setTel] = useState("");
-  const [picture, setPicture] = useState("");
+  const [picture, setPicture] = useState("https://drive.google.com/uc?id=1jit7S4cRATEfDi64YjjK1ur2jGlZYs2e");
   const { data: session } = useSession();
   const router = useRouter();
 
