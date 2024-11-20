@@ -1,4 +1,5 @@
-const API_BASE_URL = process.env.API_URL || 'http://localhost:5000';
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:5000';
+
 import { makeFetchDelay } from "../utils";
 const deleteBooking = async (bookingId: string, token: string): Promise<deleteBookingResponse> => {
   const API_URL = `${API_BASE_URL}/api/v1/bookings/${bookingId}`;

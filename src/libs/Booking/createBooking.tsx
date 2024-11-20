@@ -1,5 +1,5 @@
 
-const API_BASE_URL = process.env.API_URL || 'http://localhost:5000';
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:5000';
 
 import { makeFetchDelay } from "../utils";
 
@@ -10,6 +10,7 @@ const createBooking = async (
   token?: string
 ): Promise<createBookingResponse> => {
   const API_URL = `${API_BASE_URL}/api/v1/coworkingspaces/${coworkingspaceId}/bookings`;
+  console.log('test',process.env.API_URL)
   makeFetchDelay();
   try {
     const res = await fetch(API_URL, {

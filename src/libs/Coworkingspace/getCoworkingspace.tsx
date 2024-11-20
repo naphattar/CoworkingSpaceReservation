@@ -1,10 +1,11 @@
 import { makeFetchDelay } from "../utils";
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:5000';
 
 export default async function getCoworkingspace(id : string){
     
     makeFetchDelay()
     try {
-    const API_URL = (process.env.API_URL || 'http://localhost:5000')+ '/api/v1/coworkingspaces/' + id;
+    const API_URL = API_BASE_URL+ '/api/v1/coworkingspaces/' + id;
     
     const response = await fetch(API_URL ,{
       method: 'GET',

@@ -1,6 +1,7 @@
 import { makeFetchDelay } from "../utils";
 import { UserLogInResponse } from '@/interfaces/Authentication';
-const API_URL = (process.env.API_URL || 'http://localhost:5000') + '/api/v1/auth/login';
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:5000';
+const API_URL = API_BASE_URL + '/api/v1/auth/login';
 const userLogIn = async (userEmail: string, userPassword: string): Promise<UserLogInResponse> => {
   makeFetchDelay();
   try {

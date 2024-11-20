@@ -1,6 +1,6 @@
 import { makeFetchDelay } from "../utils";
-
-const API_URL = (process.env.API_URL || 'http://localhost:5000') + '/api/v1/coworkingspaces/';
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:5000';
+const API_URL = API_BASE_URL + '/api/v1/coworkingspaces/';
 
 export default async function createCoworkingspace(
     name: string,
