@@ -2,7 +2,7 @@
 # Coworking Space Reservation
 
 ## 🌐 Live Demo
-[![Vercel](https://img.shields.io/badge/Demo-Vercel-blue?style=for-the-badge&logo=vercel)](https://coworking-space-reservation-git-main-supakorn22s-projects.vercel.app)
+[![Vercel](https://img.shields.io/badge/Demo-Vercel-blue?style=for-the-badge&logo=vercel)](https://coworking-space-reservation.vercel.app)
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
