@@ -1,7 +1,7 @@
 import { makeFetchDelay } from "../utils";
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:5000';
 
-export default async function createCoworkingspace(
+export default async function updateCoworkingspace(
     id: string,
     name: string,
     address: string,
